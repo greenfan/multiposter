@@ -7,7 +7,6 @@ import sys
 import time
 from datetime import datetime
 
-#url = "https://zapier.com/engine/rss/7955983/OpenScienceRSS"
 url = "https://zapier.com/engine/rss/8203027/sciencefeed"
 NewsFeed = feedparser.parse(url)
 
@@ -32,7 +31,15 @@ print(postcount)
 
 
 if __name__=="__main__":
-#    minds()
-#    mastodon()
-    diaspora()
-
+    try:
+        minds()
+    except:
+        pass
+    try:
+        mastodon()
+    except:
+        pass
+    try:
+        diaspora()
+    except:
+        pass
