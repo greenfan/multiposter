@@ -16,7 +16,7 @@ def diaspora():
     options.add_argument('headless');
     options.add_argument('--ignore-certificate-errors')
     options.add_argument("--test-type")
-    options.binary_location = "/usr/bin/chromium"
+#    options.binary_location = "/usr/bin/chromium"
     driver = webdriver.Chrome(options=options)
     # End web browser config
 
@@ -27,8 +27,8 @@ def diaspora():
     ### Begin Actions
     username = driver.find_element_by_css_selector("#user_username")
     password = driver.find_element_by_css_selector("#user_password")
-    username.send_keys("Horton" + Keys.TAB)
-    password.send_keys("hortonhearsawho" + Keys.ENTER)
+    username.send_keys("opensciencedaily" + Keys.TAB)
+    password.send_keys("hellothere" + Keys.ENTER)
     # password.send_keys(u'\ue007')
 
     driver.get('https://diasp.org/stream')
@@ -94,7 +94,7 @@ def diaspora():
         submitbutton = driver.find_element_by_css_selector("#submit").click()
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="submit"]').click()
-        time.sleep(690)
+        time.sleep(1690)
 
     driver.close()
     print("...")

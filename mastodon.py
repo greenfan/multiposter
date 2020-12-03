@@ -7,14 +7,16 @@ import re
 import random
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+# Configure our web browser
 
-# Configure our webdriver
+
 
 options = webdriver.ChromeOptions()
 options.add_argument('headless');
 options.add_argument('--ignore-certificate-errors')
 options.add_argument("--test-type")
-options.binary_location = "/usr/bin/chromium"
+#options.binary_location = "/usr/bin/chromium"
+options.add_argument('window-size=1920x1480')
 driver = webdriver.Chrome(options=options)
 
 # End web browser config
@@ -30,11 +32,11 @@ def mastodon():
 #login
     username = driver.find_element_by_id("user_email")
     password = driver.find_element_by_id("user_password")
-    username.send_keys("Horton")
+    username.send_keys("opensciencedaily@a2security.net")
     time.sleep(2)
     username.send_keys(Keys.TAB)
     time.sleep(2.5)
-    password.send_keys("hortonhearsawho")
+    password.send_keys("HelloThere!!")
     time.sleep(1)
     driver.find_element_by_xpath("/html/body/div[1]/div[2]/form/div[3]/button").click()
 
@@ -76,6 +78,7 @@ def mastodon():
 
         textbox.send_keys(' \n \n \n {0}'.format((art_summary)))
         textbox.send_keys(' \n {0} \n'.format(entry.link))
+        print("Posting entry: {}".format(entry.title))
         time.sleep(3)
 
         textbox.send_keys(' \n {0}'.format(', '.join(fullhash[:8])))
@@ -83,6 +86,6 @@ def mastodon():
 
 
         driver.find_element_by_xpath("/html/body/div[1]/div/div/div[1]/div[1]/div/div/div[3]/div[5]/div/button").click()
-        time.sleep(180)
+        time.sleep(300)
 
 
