@@ -1,7 +1,9 @@
+#!/usr/bin/python
+from doingit_d import diaspora
+from mastodon import mastodon
+
 from bs4 import BeautifulSoup
-import requests
 import feedparser
-import cgi
 from datetime import datetime,timedelta
 
 # file for output
@@ -17,6 +19,8 @@ total_stories = len(NewsFeed)
 
 date_today = format(datetime.today().day).zfill(2)
 
+
+
 def count4today():
     t_c = 0
     for i in range(0, total_stories):
@@ -30,24 +34,16 @@ def count4today():
 
 count2post = count4today()
 
-for i in range(0,count4today()):
-    # DECALRE entry
-    entry = NewsFeed.entries[i]
+
+if __name__=="__main__":
     try:
-        ttags = [t.term for t in entry.tags]
+        diaspora()
+        print("Completed posting to Diaspora successfully", file = logfile)
     except:
-        ttags = "no tags for this one"
-    print(entry.title)
-    print(ttags)
-    print(entry.link)
+        pass
+        print("Diaspora did not work out trying next", file = errlog)
 
 
-# get article summary with beautifulsoup
-    try:
-        soup = BeautifulSoup(entry.summary, features="html.parser")
-        page = soup.find('p').get_text()
-        print(page)
-    except:
-        soup = BeautifulSoup(entry.summary, features="html.parser")
-        print(soup.get_text())
-# end article summary
+logfile.close()
+
+errlog.close()
