@@ -16,9 +16,21 @@ NewsFeed = feedparser.parse(url)
 total_stories = len(NewsFeed)
 
 date_today = format(datetime.today().day).zfill(2)
-print(date_today)
 
-for i in range(0,7):
+def count4today():
+    t_c = 0
+    for i in range(0, total_stories):
+        entry = NewsFeed.entries[1]
+        s = entry.published
+
+        pdate = datetime.strptime(s,"%Y-%m-%dT%H:%M:%SZ")
+        if date_today in str(pdate):
+            t_c = t_c + 1
+    return(t_c)
+
+count2post = count4today()
+
+for i in range(0,count4today()):
     # DECALRE entry
     entry = NewsFeed.entries[i]
     try:
@@ -39,57 +51,3 @@ for i in range(0,7):
         soup = BeautifulSoup(entry.summary, features="html.parser")
         print(soup.get_text())
 # end article summary
-
-
-
-# get date for today's entrys
-#    3s = entry.published
-#    pdate = datetime.strptime(s,"%Y-%m-%dT%H:%M:%SZ")
-#    print(format(pdate.day).zfill(2))
-#    print('\n')
-# end date
-
-
-
-date_today = format(datetime.today().day).zfill(2)
-'''
-for i in range(0, total_stories):
-    entry = NewsFeed.entries[1]
-    s = entry.published
-
-    pdate = datetime.strptime(s,"%Y-%m-%dT%H:%M:%SZ")
-    if date_today in str(pdate):
-        t_c = t_c + 1
-    print(t_c)
-'''
-def count4today():
-    t_c = 0
-    for i in range(0, total_stories):
-        entry = NewsFeed.entries[1]
-        s = entry.published
-
-        pdate = datetime.strptime(s,"%Y-%m-%dT%H:%M:%SZ")
-        if date_today in str(pdate):
-            t_c = t_c + 1
-    return(t_c)
-'''
-def howmany():
-    date_today = format(datetime.today().day).zfill(2)
-    print(date_today)
-    totalc = 0
-    print(total_stories)
-    for i in range(0,total_stories):
-        entry = NewsFeed.entries[i]
-        s = entry.published
-        pdate = datetime.strptime(s,"%Y-%m-%dT%H:%M:%SZ")
-        print(pdate)
-        if date_today in str(pdate):
-            totalc = totalc + 1
-            print(totalc)
-        print(totalc)
-        return totalc
-
-#print(howmany())
-howmany()
-'''
-print(count4today())
