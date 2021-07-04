@@ -15,7 +15,8 @@ errlog = open('erroutput.txt', 'a')
 
 print("=======Today's date is: {}=======\n".format(datetime.today()), file = logfile)
 # Begin scraping RSS feed
-url = "https://zapier.com/engine/rss/8954721/solarstuff2"
+#url = "https://zapier.com/engine/rss/8954721/solarstuff2"
+url = "http://www.newsblur.com/reader/starred_rss/605591/89d85fb786d7/tech"
 NewsFeed = feedparser.parse(url)
 
 # If multiposter.py was run with arguments, check them
@@ -38,7 +39,7 @@ else:
         print(entry.title, file = logfile)
         print(entry.link, file = logfile)
 
-
+print(f"Postcount is {postcount}, printing {postcount} entires. . . ")
 
 if __name__=="__main__":
     try:

@@ -25,7 +25,7 @@ def mastodon():
 
     from multiposter import postcount
     from multiposter import NewsFeed
-    print(postcount)
+    print(f"I am mastodon, posting {postcount} entires...")
 
 
 
