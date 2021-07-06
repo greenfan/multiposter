@@ -89,14 +89,30 @@ def diaspora():
         # Finally declare hashtags as fullhash
         fullhash = list(set(filter(lambda w: w not in stop_words, hash)))
         print(*fullhash)
-        textbox.send_keys('> {0}\n {1} \n {2} \n ****'.format(entry.summary, entry.link, ', '.join(fullhash)))
+
+        # get article summary with beautifulsoup
+        try:
+            soup = BeautifulSoup(entry.summary, features="html.parser")
+            nice_summary = soup.find('p').get_text()
+        except:
+            soup = BeautifulSoup(entry.summary, features="html.parser")
+            nice_summary = soup.get_text()
+# end article summary
+
+        textbox.send_keys('> {0}\n {1} \n {2} \n ****'.format(nice_summary, entry.link, ', '.join(fullhash)))
         time.sleep(1)
         submitbutton = driver.find_element_by_css_selector("#submit").click()
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="submit"]').click()
-        time.sleep(1690)
+        time.sleep(699)
 
     driver.close()
     print("...")
     time.sleep(1)
     print("I have typed it and clicked submit, Master.")
+    print(''' I am now trying to close the function.
+
+    .... please wait....
+    ''')
+    time.sleep(10)
+    return()
