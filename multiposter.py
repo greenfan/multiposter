@@ -19,7 +19,7 @@ options = webdriver.ChromeOptions()
 #options.add_argument('headless');
 options.add_argument('--ignore-certificate-errors')
 options.add_argument("--test-type")
-#options.binary_location = "/usr/bin/chromium"
+options.binary_location = "/usr/bin/chromium"
 options.add_argument('window-size=1920x1480')
 driver = webdriver.Chrome(options=options)
 # file for output
@@ -66,7 +66,8 @@ for i in range(0, t_count):
 if argcount == 3:
     time_var = int(sys.argv[2])
 else:
-    time_var = int(369)
+    time_var = 369
+
 
 
 print(f"\n\n\nPosting {t_count} in {time_var} variable increments.")
@@ -160,4 +161,90 @@ def mastodon():
 
 
         driver.find_element_by_xpath("/html/body/div[1]/div/div/div[1]/div[1]/div/div/div[3]/div[5]/div/button").click()
-        time.sleep({time_var})
+        time.sleep(time_var)
+        
+        
+mastodon()
+
+
+
+def diaspora():
+
+    print(type(time_var))
+    print(time_var)
+
+    for i in reversed(range(0, t_count)):
+
+        entry = NewsFeed.entries[i]
+        # Configure our web browser
+        options = webdriver.ChromeOptions()
+       # options.add_argument('headless');
+        options.add_argument('--ignore-certificate-errors')
+        options.add_argument("--test-type")
+    #    options.binary_location = "/usr/bin/chromium"
+        options.add_argument('window-size=2120x1280')
+        driver = webdriver.Chrome(options=options)
+        # End web browser config
+
+        driver.get('https://diasp.org/stream')
+
+        time.sleep(3)
+
+        ### Begin Actions
+        username = driver.find_element_by_css_selector("#user_username")
+        password = driver.find_element_by_css_selector("#user_password")
+        username.send_keys("opensciencedaily" + Keys.TAB)
+        password.send_keys("Zxcvfgfg21" + Keys.ENTER)
+
+
+        driver.get('https://diasp.org/stream')
+        time.sleep(15)
+        textbox = driver.find_element_by_css_selector("#status_message_text")
+
+
+        pdate = entry.published
+        textbox.send_keys('#### {0}\n****\n'.format((entry.title)))
+        time.sleep(0.5)
+
+       # try:
+        try:
+            hashtags = [t.term for t in entry.tags]
+            hashtags2 = ' '.join(map(str, hashtags))
+            hashlist = re.split(' ', hashtags2)
+            hashlist = hashlist[0:9]
+            hashlistnum = len(hashlist)
+
+
+        except AttributeError:
+            itemlist = ["solar", "energy", "news", "renewable", "PV", "hydrogen", "solarpower", "sustainability",
+                        "photovoltaic", "green", "renewableenergy", "futurology", "RSS"]
+            hashlist = random.choices(itemlist, k=5)
+
+        hash = ['#' + i for i in hashlist]
+
+        # REmove unwanted hashtags
+        stop_words = ["#&", "#and", "#a", "#", "#with", "#the", "#for", "#company", "#of"]
+        # Finally declare hashtags as fullhash
+        fullhash = list(set(filter(lambda w: w not in stop_words, hash)))
+        print(*fullhash)
+                # get article summary with beautifulsoup
+        try:
+            soup = BeautifulSoup(entry.summary, features="html.parser")
+            nice_summary = soup.find('p').get_text()
+        except:
+            soup = BeautifulSoup(entry.summary, features="html.parser")
+            nice_summary = soup.get_text()
+# end article summary
+
+        textbox.send_keys('> {0}\n {1} \n {2} \n ****'.format(nice_summary, entry.link, ', '.join(fullhash)))
+        time.sleep(1)
+        submitbutton = driver.find_element_by_css_selector("#submit").click()
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="submit"]').click()
+
+        time.sleep(time_var)
+
+        driver.close()
+
+diaspora()
+
