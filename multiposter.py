@@ -18,31 +18,33 @@ todays_date = format(datetime.today().day).zfill(2)
 
 
 argcount = len(sys.argv)
-print(f"today's day number is {todays_date}")
+print(f"Stories to post:\n\n\n")
+time.sleep(1)
+print(f"fetching data")
 
+
+for i in range (10):
+    print(""". """)
+    time.sleep(.1)
+
+time.sleep(1)
 if argcount >= 2:
     t_count = int(sys.argv[1])
 else:
     t_count = 0
-
-    print("T count {}".format(t_count))
-    # Count manually to find out how many ### to post  t_count === number of stories to post
     for i in range(0, 10):
         # DECALRE entry
         entry = NewsFeed.entries[i]
         pdate = entry.published.split('T')[0]
-        print(pdate)
-        # Add time divergence
         if todays_date in pdate:
             t_count = t_count + 1
-        print(entry.title)
 
+for i in range(0, t_count):
+    entry = NewsFeed.entries[i]
+    print(f"{entry.title}\n")
+    time.sleep(.3)
 
 if argcount == 3:
     time_var = int(sys.argv[2])
 else:
     time_var = int(369)
-    
-    
-
-print(f"posting {t_count} in {time_var} variable increments.")
