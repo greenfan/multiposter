@@ -100,7 +100,7 @@ def mastodon():
     time.sleep(2)
     username.send_keys(Keys.TAB)
     time.sleep(2.5)
-    password.send_keys("Zxcvfgfg21*&")
+    password.send_keys("XXXXX")
     time.sleep(1)
     driver.find_element_by_xpath("/html/body/div[1]/div[2]/form/div[3]/button").click()
 # begin posting
@@ -194,7 +194,7 @@ def diaspora():
         username = driver.find_element_by_css_selector("#user_username")
         password = driver.find_element_by_css_selector("#user_password")
         username.send_keys("opensciencedaily" + Keys.TAB)
-        password.send_keys("Zxcvfgfg21" + Keys.ENTER)
+        password.send_keys("XXXXX" + Keys.ENTER)
 
 
         driver.get('https://diasp.org/stream')
