@@ -1,5 +1,3 @@
-[rnd@srvrhrd ~]$ cat !$
-cat ./tumblr.py
 #!/usr/bin/python
 import feedparser
 import sys
@@ -12,7 +10,12 @@ import random
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-
+"""options.add_argument('--ignore-certificate-errors')
+options.add_argument("--test-type")
+selenium.common.exceptions.WebDriverException: Message: 'geckodriver'
+options.add_argument('window-size=1920x1480')
+driver = webdriver.Chrome(options=options)
+"""
 # file for output
 todays_date = format(datetime.today().day).zfill(2)
 # Begin scraping RSS feed
@@ -94,7 +97,7 @@ def tumbly():
     passbox = driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/div[2]/div/section/div/form/div[2]/input")
     usernamebox.send_keys("futurepowered@a2security.net")
     time.sleep(1)
-    passbox.send_keys("PENIS")
+    passbox.send_keys("HelloMom")
     time.sleep(1)
     #driver.find_element_by_xpath("/html/body/div/div/div[2]/div[1]/section/div/div/div[2]/div[1]/section/div/form/button").click()
     driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/div[2]/div/section/div/form/button/span").click()
@@ -113,7 +116,10 @@ def tumbly():
     elem.send_keys("hello world")
 
 #a = ActionChains(driver)
-    elem.key_down(Keys.SHIFT).send_keys(Keys.TAB).key_up(Keys.SHIFT).send_keys("Hello Titties")
+#    elem.key_down(Keys.SHIFT).send_keys(Keys.TAB).key_up(Keys.SHIFT).send_keys("Hello Titties")
+    a = ActionChains(driver)
+    a.key_down(Keys.SHIFT).send_keys(Keys.TAB).key_up(Keys.SHIFT).send_keys("I Love Big Boobies")
+    a.perform()
 
 #    elem.send_keys(Keys.TAB"Hello Fags")
     driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[2]/div/div[2]/div/span/span/textarea")
@@ -124,14 +130,50 @@ def tumbly():
 
 
 
+#    driver.find_element_by_xpath("""//*[@id="NL98c"]""").send_keys("hello world")
+#    driver.find_element_by_xpath("""//*[@id="placeholder-draft16"]""").click()
+#    print("Clicked it")
+ #   time.sleep(3)
+ #   driver.find_element_by_xpath("""//*[@id="placeholder-draft16"]""").send_keys("hello world")
+
     driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[1]/div[1]/div/div/button").click()
 
+    """try:
+        box1 = driver.find_element_by_xpath("/html/body/div/div/div[4]/div")
+        print(box1)
+    except:
+        print("nada")
+
+    try:
+        box2 = driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[2]")
+        print(f"{box2} box2 now found ")
+    except:
+        print("nada")
+    try:
+        print(f"{box3} box3 found")
+    except:
+        print("nada")
+
+    print(f"found box1 {box1}")
+
+
+    try:
+        box2.send_keys("hello tumblr")
+    except Exception:
+        print("nada")
+
+    try:
+        box3.send_keys("hello tumblr")
+    except Exception:
+        print("nada")
+
+"""
 
     print("found elements")
     time.sleep(10)
 
 
-        
+
 
 
 
@@ -194,7 +236,7 @@ def tumbly():
 
 
 
-    
+
 
 
 
@@ -210,5 +252,3 @@ def tumbly():
 
 
 tumbly()
-
-
