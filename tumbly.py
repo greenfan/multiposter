@@ -1,4 +1,8 @@
-#!/usr/bin/python
+#!/bin/shebang
+# tumbly.py v3
+
+# extending multiposter to post to tumblr
+
 import feedparser
 import sys
 import time
@@ -10,12 +14,8 @@ import random
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-"""options.add_argument('--ignore-certificate-errors')
-options.add_argument("--test-type")
-selenium.common.exceptions.WebDriverException: Message: 'geckodriver'
-options.add_argument('window-size=1920x1480')
-driver = webdriver.Chrome(options=options)
-"""
+
+
 # file for output
 todays_date = format(datetime.today().day).zfill(2)
 # Begin scraping RSS feed
@@ -84,116 +84,43 @@ print(f"\n\n\nPosting {t_count} in {time_var} variable increments.")
 
 
 
-
-
 def tumbly():
-    driver.get('https://www.tumblr.com/login')
-
-
-    #usernamebox = driver.find_element_by_xpath("/html/body/div/div/div[2]/div[1]/section/div/div/div[2]/div[1]/section/div/form/div[1]/input")
-    usernamebox = driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/div[2]/div/section/div/form/div[1]/input")
-
-    #passbox = driver.find_element_by_xpath("/html/body/div/div/div[2]/div[1]/section/div/div/div[2]/div[1]/section/div/form/div[2]/input")
-    passbox = driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/div[2]/div/section/div/form/div[2]/input")
-    usernamebox.send_keys("futurepowered@a2security.net")
-    time.sleep(1)
-    passbox.send_keys("HelloMom")
-    time.sleep(1)
-    #driver.find_element_by_xpath("/html/body/div/div/div[2]/div[1]/section/div/div/div[2]/div[1]/section/div/form/button").click()
-    driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/div[2]/div/section/div/form/button/span").click()
-    time.sleep(10)
-    print("Successfully logged in...")
-    time.sleep(16)
-
-
-
-    driver.find_element_by_xpath("/html/body/div/div/div[2]/div[1]/header/div[1]").click()
-    time.sleep(2)
-    driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div[2]/div/nav/div/nav/ul[1]/li[1]/a/span").click()
-    time.sleep(10)
-
-    elem = driver.switch_to.active_element
-    elem.send_keys("hello world")
-
-#a = ActionChains(driver)
-#    elem.key_down(Keys.SHIFT).send_keys(Keys.TAB).key_up(Keys.SHIFT).send_keys("Hello Titties")
-    a = ActionChains(driver)
-    a.key_down(Keys.SHIFT).send_keys(Keys.TAB).key_up(Keys.SHIFT).send_keys("I Love Big Boobies")
-    a.perform()
-
-#    elem.send_keys(Keys.TAB"Hello Fags")
-    driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[2]/div/div[2]/div/span/span/textarea")
-
-    driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[2]/div/div[2]/div/span/span/textarea").send_keys("Hello Tumblr fags")
-    elem = driver.switch_to.active_element
-    elem.send_keys("hello world")
-
-
-
-#    driver.find_element_by_xpath("""//*[@id="NL98c"]""").send_keys("hello world")
-#    driver.find_element_by_xpath("""//*[@id="placeholder-draft16"]""").click()
-#    print("Clicked it")
- #   time.sleep(3)
- #   driver.find_element_by_xpath("""//*[@id="placeholder-draft16"]""").send_keys("hello world")
-
-    driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[1]/div[1]/div/div/button").click()
-
-    """try:
-        box1 = driver.find_element_by_xpath("/html/body/div/div/div[4]/div")
-        print(box1)
-    except:
-        print("nada")
-
-    try:
-        box2 = driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[2]")
-        print(f"{box2} box2 now found ")
-    except:
-        print("nada")
-    try:
-        print(f"{box3} box3 found")
-    except:
-        print("nada")
-
-    print(f"found box1 {box1}")
-
-
-    try:
-        box2.send_keys("hello tumblr")
-    except Exception:
-        print("nada")
-
-    try:
-        box3.send_keys("hello tumblr")
-    except Exception:
-        print("nada")
-
-"""
-
-    print("found elements")
-    time.sleep(10)
-
-
-
-
-
-
-
-
-
     for i in reversed(range(0, t_count)):
 
+        driver.get('https://www.tumblr.com/login')
+
+
+        usernamebox = driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/div[2]/div/section/div/form/div[1]/input")
+
+        passbox = driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/div[2]/div/section/div/form/div[2]/input")
+        usernamebox.send_keys("futurepowered@a2security.net")
+        time.sleep(1)
+        passbox.send_keys("")
+        time.sleep(1)
+        driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/div[2]/div/section/div/form/button/span").click()
+        time.sleep(10)
+        print("Successfully logged in...")
+        time.sleep(16)
 
 
 
-        print("attempting parse")
-        entry = NewsFeed.entries[i]
+        driver.find_element_by_xpath("/html/body/div/div/div[2]/div[1]/header/div[1]").click()
+        time.sleep(2)
+        driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div[2]/div/nav/div/nav/ul[1]/li[1]/a/span").click()
+        time.sleep(10)
 
 
 
-        title_field.send_keys('{0}'.format((entry.title)))
-        textbox.send_keys('{0}'.format((entry.title)))
 
-        # get hash tag
+
+
+        pdate = entry.published
+        print('#### {0}\n****\n'.format((entry.title)))
+
+
+
+        elem = driver.switch_to.active_element
+
         try:
             hashtags = [t.term for t in entry.tags]
             hashtags2 = ' '.join(map(str, hashtags))
@@ -201,10 +128,11 @@ def tumbly():
             hashlist = hashlist[0:9]
             hashlistnum = len(hashlist)
 
+
         except AttributeError:
-            itemlist = ["solar", "energy", "news", "renewable", "PV", "hydrogen", "sustainability",
-                        "photovoltaic", "green", "technology", "science"]
-            hashlist = random.choices(itemlist, k=6)
+            itemlist = ["solar", "energy", "news", "renewable", "PV", "hydrogen", "solarpower", "sustainability",
+                        "photovoltaic", "green", "renewableenergy", "futurology", "RSS"]
+            hashlist = random.choices(itemlist, k=5)
 
         hash = ['#' + i for i in hashlist]
 
@@ -212,43 +140,42 @@ def tumbly():
         stop_words = ["#&", "#and", "#a", "#", "#with", "#the", "#for", "#company", "#of"]
         # Finally declare hashtags as fullhash
         fullhash = list(set(filter(lambda w: w not in stop_words, hash)))
-                # get article summary with beautifulsoup
+        print(*fullhash)
+        # get article summary with beautifulsoup
         try:
             soup = BeautifulSoup(entry.summary, features="html.parser")
             nice_summary = soup.find('p').get_text()
-            nice_summary = ( nice_summary[:70] + "..." )if len(nice_summary) > 90 else nice_summary
         except:
             soup = BeautifulSoup(entry.summary, features="html.parser")
             nice_summary = soup.get_text()
-            nice_summary = ( nice_summary[:70] + "..." )if len(nice_summary) > 90 else nice_summary
+        # end article summary
+
+        elem.send_keys("{0} \n {1}".format(nice_summary, entry.link))
 
 
-        textbox.send_keys(' \n \n \n{0}'.format((nice_summary)))
-        textbox.send_keys(' \nArticle Source: {0} \n'.format(entry.link))
-        time.sleep(3)
-
-        textbox.send_keys(' \n {0}'.format(', '.join(fullhash[:8])))
-
-
-
-        driver.find_element_by_xpath("/html/body/div[1]/div/div/div[1]/div[1]/div/div/div[3]/div[5]/div/button").click()
-        time.sleep(time_var)
+        a = ActionChains(driver)
+        a.key_down(Keys.SHIFT).send_keys(Keys.TAB).key_up(Keys.SHIFT).send_keys('{0}'.format(entry.title))
+        a.perform()
 
 
 
+        driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[2]/div/div[2]/div/span/span/textarea")
 
 
+        bwc ="#".join(fullhash)
+        driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[2]/div/div[2]/div/span/span/textarea").send_keys('{0}'.format(bwc))
+
+        elem = driver.switch_to.active_element
 
 
-
-
-
-
-
-
-
-
-
+        driver.find_element_by_xpath("/html/body/div/div/div[4]/div/div/div/div/div[1]/div[1]/div/div/button").click()
 
 
 tumbly()
+print("found elements")
+time.sleep(10)
+
+
+
+
+
