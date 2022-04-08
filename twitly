@@ -1,0 +1,178 @@
+#!/usr/bin/python
+import feedparser
+import sys
+import time
+from datetime import datetime
+from selenium import webdriver
+from bs4 import BeautifulSoup
+import re
+import random
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+
+
+
+# file for output
+todays_date = format(datetime.today().day).zfill(2)
+# Begin scraping RSS feed
+url = "http://www.newsblur.com/reader/starred_rss/605591/89d85fb786d7/tech"
+NewsFeed = feedparser.parse(url)
+# If multiposter.py was run with arguments, check them
+
+driver = webdriver.Firefox()
+
+
+
+
+driver.set_window_size(860, 1080)
+
+todays_date = format(datetime.today().day).zfill(2)
+print(todays_date)
+
+
+
+argcount = len(sys.argv)
+print(f"Stories to post:\n\n\n")
+time.sleep(1)
+print(f"fetching data")
+
+
+for i in range (10):
+    print(". ", end=' ')
+    time.sleep(.03)
+    print(".")
+
+for i in range (10):
+    print(". ", end=' ')
+    time.sleep(.031)
+    print(".")
+    print(". ", end=' ')
+    time.sleep(.031)
+
+print(".")
+time.sleep(1)
+if argcount >= 2:
+    t_count = int(sys.argv[1])
+else:
+    t_count = 0
+    for i in range(0, 10):
+        # DECALRE entry
+        entry = NewsFeed.entries[i]
+        pdate = entry.published.split('T')[0]
+        pdate = str(pdate)[5:]
+        if todays_date in pdate:
+            t_count = t_count + 1
+
+for i in range(0, t_count):
+    entry = NewsFeed.entries[i]
+    print(f"{entry.title}\n")
+    time.sleep(.3)
+
+if argcount == 3:
+    time_var = int(sys.argv[2])
+else:
+    time_var = 969
+
+
+
+print(f"\n\n\nPosting {t_count} in {time_var} variable increments.")
+
+
+
+
+def twitly():
+    driver.get('https://twitter.com/i/flow/login')
+
+    time.sleep(5)
+    try:
+        usernamebox = driver.find_element_by_xpath(
+            "//html/body/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[5]/label/div/div[2]/div")
+    except Exception:
+        print("Durrrr")
+    time.sleep(3)
+    print("trying to click")
+    usernamebox.click()
+    print("trying to burrr")
+    elem = driver.switch_to.active_element
+    elem.send_keys("hostintheclouds")
+    elem.send_keys(Keys.ENTER)
+
+    time.sleep(5)
+    
+    box = driver.find_element_by_xpath(
+        "/html/body/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]")
+    passwordbox.click()
+    print("trying to burrr")
+    elem = driver.switch_to.active_element
+    elem.send_keys("moneyprintergoburrrr")
+    elem.send_keys(Keys.ENTER)
+    time.sleep(3)
+
+
+    for i in reversed(range(0, t_count)):
+
+        entry = NewsFeed.entries[i]
+        driver.get('https://twitter.com/')
+
+        tweetbox = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div[2]/div/div/div/div")
+        tweetbox.click()
+        elem = driver.switch_to.active_element
+
+
+        pdate = entry.published
+        print('#### {0}\n****\n'.format((entry.title)))
+
+        elem = driver.switch_to.active_element
+
+        try:
+            hashtags = [t.term for t in entry.tags]
+            hashtags2 = ' '.join(map(str, hashtags))
+            hashlist = re.split(' ', hashtags2)
+            hashlist = hashlist[0:9]
+            hashlistnum = len(hashlist)
+
+
+        except AttributeError:
+            itemlist = ["solar", "energy", "news", "renewable", "PV", "hydrogen", "solarpower", "sustainability",
+                        "photovoltaic", "green", "renewableenergy", "futurology", "RSS"]
+            hashlist = random.choices(itemlist, k=5)
+
+        hash = ['#' + i for i in hashlist]
+
+        # REmove unwanted hashtags
+        stop_words = ["#&", "#and", "#a", "#", "#with", "#the", "#for", "#company", "#of"]
+        # Finally declare hashtags as fullhash
+        fullhash = list(set(filter(lambda w: w not in stop_words, hash)))
+        print(*fullhash)
+        # get article summary with beautifulsoup
+        try:
+            soup = BeautifulSoup(entry.summary, features="html.parser")
+            nice_summary = soup.find('p').get_text()
+            nice_summary = nice_summary[:112]
+
+        except:
+            soup = BeautifulSoup(entry.summary, features="html.parser")
+            nice_summary = soup.get_text()
+            nice_summary = nice_summary[:112]
+        # end article summary
+
+        elem.send_keys("{0} \n {1}".format(nice_summary, entry.link))
+
+        elem.send_keys(' \n {0}'.format(', '.join(fullhash[:6])))
+        for _ in range(8):
+            elem.send_keys(Keys.TAB)
+        elem.send_keys(Keys.ENTER)
+
+
+
+        tweetbutton = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div[3]/div/span")
+
+        tweetbutton.click()
+        time.sleep(369)
+#add variable for time to sleep between postings -- 4/8/2022
+
+
+twitly()
+print("found elements")
+time.sleep(10)
+
